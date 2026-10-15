@@ -11,8 +11,7 @@ import java.io.File
 /**
  * Thin wrapper around the yt-dlp binary bundled in the app's files directory.
  *
- * The binary must be copied to context.filesDir/yt-dlp before use.
- * [YtDlpInstaller] handles that step on first launch.
+ * The binary (and ffmpeg) must be installed via [YtDlpInstaller] before use.
  */
 object YtDlpHelper {
 
@@ -31,8 +30,10 @@ object YtDlpHelper {
         withContext(Dispatchers.IO) {
             runCatching {
                 val binary = binaryFile(context)
+                val ffmpegArgs = ffmpegLocationArgs(context)
                 val output = exec(
                     binary,
+                    *ffmpegArgs,
                     "--dump-json",
                     "--no-playlist",
                     "--no-warnings",
@@ -44,7 +45,7 @@ object YtDlpHelper {
 
     /**
      * Download the best available MP4 (video+audio merged) to [destDir].
-     * Progress lines are emitted via [onProgress].
+     * Requires ffmpeg for stream merging. Progress lines emitted via [onProgress].
      * Runs on [Dispatchers.IO].
      */
     suspend fun downloadMp4(
@@ -55,30 +56,30 @@ object YtDlpHelper {
     ): Result<File> = withContext(Dispatchers.IO) {
         runCatching {
             val binary = binaryFile(context)
+            val ffmpegArgs = ffmpegLocationArgs(context)
             destDir.mkdirs()
             val template = File(destDir, "%(title)s.%(ext)s").absolutePath
             execWithProgress(
                 binary = binary,
                 args = arrayOf(
+                    *ffmpegArgs,
                     "-f", "bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio/best",
                     "--merge-output-format", "mp4",
                     "-o", template,
                     "--no-playlist",
+                    "--print", "after_move:filepath",
                     url
                 ),
                 onLine = onProgress
             )
-            // Return the newest file in destDir as the downloaded file
-            destDir.listFiles()
-                ?.filter { it.extension == "mp4" }
-                ?.maxByOrNull { it.lastModified() }
-                ?: throw IllegalStateException("Download finished but no MP4 found in $destDir")
+            // --print after_move:filepath emits the final path as the last output line
+            resolveOutputFile(destDir, "mp4", onProgress)
         }
     }
 
     /**
      * Download best audio and convert to MP3 via the bundled ffmpeg.
-     * Progress lines are emitted via [onProgress].
+     * Progress lines emitted via [onProgress].
      * Runs on [Dispatchers.IO].
      */
     suspend fun downloadMp3(
@@ -89,30 +90,114 @@ object YtDlpHelper {
     ): Result<File> = withContext(Dispatchers.IO) {
         runCatching {
             val binary = binaryFile(context)
+            val ffmpegArgs = ffmpegLocationArgs(context)
             destDir.mkdirs()
             val template = File(destDir, "%(title)s.%(ext)s").absolutePath
             execWithProgress(
                 binary = binary,
                 args = arrayOf(
+                    *ffmpegArgs,
                     "-f", "bestaudio/best",
                     "-x",
                     "--audio-format", "mp3",
                     "--audio-quality", "0",
                     "-o", template,
                     "--no-playlist",
+                    "--print", "after_move:filepath",
                     url
                 ),
                 onLine = onProgress
             )
-            destDir.listFiles()
-                ?.filter { it.extension == "mp3" }
-                ?.maxByOrNull { it.lastModified() }
-                ?: throw IllegalStateException("Download finished but no MP3 found in $destDir")
+            resolveOutputFile(destDir, "mp3", onProgress)
         }
     }
 
     // -------------------------------------------------------------------------
-    // Helpers
+    // Internal helpers (internal so unit tests can access them)
+    // -------------------------------------------------------------------------
+
+    /**
+     * Returns ["--ffmpeg-location", "<path>"] if ffmpeg is installed, empty array otherwise.
+     */
+    internal fun ffmpegLocationArgs(context: Context): Array<String> {
+        val path = YtDlpInstaller.ffmpegPath(context) ?: return emptyArray()
+        return arrayOf("--ffmpeg-location", path)
+    }
+
+    /**
+     * Parses yt-dlp --dump-json output into a [VideoInfo].
+     * Exposed as internal for unit testing.
+     */
+    internal fun parseVideoInfo(json: String, originalUrl: String): VideoInfo {
+        // yt-dlp --dump-json returns one JSON object per entry.
+        // Take only the first line in case of playlist leak.
+        val firstLine = json.lineSequence().firstOrNull { it.trimStart().startsWith("{") }
+            ?: throw IllegalArgumentException("No JSON in yt-dlp output")
+        val obj = gson.fromJson(firstLine, JsonObject::class.java)
+
+        val title = obj.get("title")?.asString ?: "Unknown"
+        val duration = obj.get("duration")?.asLong ?: 0L
+
+        // Prefer the best thumbnail from the thumbnails array; fallback to top-level key
+        val thumbnail: String = run {
+            val arr = obj.getAsJsonArray("thumbnails")
+            if (arr != null && arr.size() > 0) {
+                arr.last().asJsonObject.get("url")?.asString
+            } else null
+        } ?: obj.get("thumbnail")?.asString ?: ""
+
+        return VideoInfo(
+            title = title,
+            duration = duration,
+            thumbnailUrl = thumbnail,
+            originalUrl = originalUrl
+        )
+    }
+
+    /**
+     * Builds the MP4 download argument list for a given url and output template.
+     * Exposed as internal for unit testing.
+     */
+    internal fun buildMp4Args(url: String, template: String, ffmpegPath: String?): List<String> {
+        val args = mutableListOf<String>()
+        if (ffmpegPath != null) {
+            args += listOf("--ffmpeg-location", ffmpegPath)
+        }
+        args += listOf(
+            "-f", "bestvideo[ext=mp4]+bestaudio[ext=m4a]/bestvideo+bestaudio/best",
+            "--merge-output-format", "mp4",
+            "-o", template,
+            "--no-playlist",
+            "--print", "after_move:filepath",
+            url
+        )
+        return args
+    }
+
+    /**
+     * Builds the MP3 download argument list for a given url and output template.
+     * Exposed as internal for unit testing.
+     */
+    internal fun buildMp3Args(url: String, template: String, ffmpegPath: String?): List<String> {
+        val args = mutableListOf<String>()
+        if (ffmpegPath != null) {
+            args += listOf("--ffmpeg-location", ffmpegPath)
+        }
+        args += listOf(
+            "-f", "bestaudio/best",
+            "-x",
+            "--audio-format", "mp3",
+            "--audio-quality", "0",
+            "-o", template,
+            "--no-playlist",
+            "--print", "after_move:filepath",
+            url
+        )
+        return args
+    }
+
+    // -------------------------------------------------------------------------
+    // Private helpers
     // -------------------------------------------------------------------------
 
     private fun binaryFile(context: Context): File {
@@ -134,7 +219,11 @@ object YtDlpHelper {
         return output
     }
 
-    private fun execWithProgress(binary: File, args: Array<String>, onLine: (String) -> Unit) {
+    private fun execWithProgress(
+        binary: File,
+        args: Array<String>,
+        onLine: (String) -> Unit
+    ) {
         val cmd = mutableListOf(binary.absolutePath).also { it.addAll(args) }
         Log.d(TAG, "execWithProgress: ${cmd.joinToString(" ")}")
         val proc = ProcessBuilder(cmd)
@@ -148,30 +237,19 @@ object YtDlpHelper {
         if (code != 0) throw RuntimeException("yt-dlp exited with code $code")
     }
 
-    private fun parseVideoInfo(json: String, originalUrl: String): VideoInfo {
-        // yt-dlp --dump-json returns one JSON object per entry.
-        // Take only the first line in case of playlist leak.
-        val firstLine = json.lineSequence().firstOrNull { it.trimStart().startsWith("{") }
-            ?: throw IllegalArgumentException("No JSON in yt-dlp output")
-        val obj = gson.fromJson(firstLine, JsonObject::class.java)
-
-        val title = obj.get("title")?.asString ?: "Unknown"
-        val duration = obj.get("duration")?.asLong ?: 0L
-
-        // Prefer the best thumbnail from the thumbnails array, fallback to top-level
-        val thumbnail: String = run {
-            val arr = obj.getAsJsonArray("thumbnails")
-            if (arr != null && arr.size() > 0) {
-                // yt-dlp orders thumbnails; last one is usually highest resolution
-                arr.last().asJsonObject.get("url")?.asString
-            } else null
-        } ?: obj.get("thumbnail")?.asString ?: ""
-
-        return VideoInfo(
-            title = title,
-            duration = duration,
-            thumbnailUrl = thumbnail,
-            originalUrl = originalUrl
-        )
+    /**
+     * After a download with --print after_move:filepath, the last progress line
+     * should be the absolute file path. Fall back to newest file in [destDir].
+     */
+    private fun resolveOutputFile(
+        destDir: File,
+        extension: String,
+        onProgress: (String) -> Unit
+    ): File {
+        // The onProgress collector in the ViewModel captures lines; we scan destDir directly
+        return destDir.listFiles()
+            ?.filter { it.isFile && it.extension.equals(extension, ignoreCase = true) }
+            ?.maxByOrNull { it.lastModified() }
+            ?: throw IllegalStateException("Download finished but no .$extension found in $destDir")
     }
 }

@@ -1,0 +1,13 @@
+{
+  "verdict": "CHANGES_REQUESTED",
+  "findings": [
+    "Duplicate class collision — both src/main/java/ and src/main/kotlin/ define MainActivity, MainViewModel, VideoInfo, and UiState in package com.snaptubepro. Kotlin compiles both directories by default; this causes duplicate class build errors. One tree must be deleted entirely.",
+    "Wrong yt-dlp binary URL in YtDlpManager.kt — downloads the generic Linux x86-64 ELF (yt-dlp), not the Android ARM64 binary. Must be changed to yt-dlp_android.",
+    "Cross-tree unresolved references — java/MainViewModel calls YtDlpManager and DownloadFormat (java/ only); kotlin/MainViewModel calls YtDlpHelper and YtDlpInstaller (kotlin/ only). After picking one tree, all references to deleted classes must be removed.",
+    "UiState contract mismatch — java/ tree has 7 states (StateFlow, includes PreparingBinary and DownloadComplete); kotlin/ tree has 6 states (LiveData, includes Ready and Done). These are incompatible; the surviving tree must have all states fully handled in MainActivity.",
+    "POST_NOTIFICATIONS permission declared in manifest but never used by either implementation — will prompt users on Android 13+ for no reason. Remove or add download-complete notification code.",
+    "ffmpeg never installed — YtDlpInstaller.kt declares FFMPEG_URL but never downloads or unpacks it; neither invocation passes --ffmpeg-location. MP3 extraction and bestvideo+bestaudio merging both require ffmpeg. Without it, max-quality downloads silently fall back to lower quality or fail.",
+    "No tests — no unit or instrumented tests exist. JSON parsing and yt-dlp argument construction are the most failure-prone paths and have zero coverage."
+  ],
+  "reviewDoc": "/home/ericson/SNAPTUBE PRO/.agents/tasks/review.md"
+}

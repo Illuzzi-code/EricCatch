@@ -43,4 +43,5 @@ dependencies {
     implementation(libs.glide)
     annotationProcessor(libs.glide.compiler)
     implementation(libs.gson)
+    testImplementation(libs.junit)
 }
