@@ -1,11 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FF4444</color>
-    <color name="colorPrimaryDark">#CC0000</color>
-    <color name="colorAccent">#FF4444</color>
-    <color name="background_dark">#121212</color>
-    <color name="surface_dark">#1E1E1E</color>
-    <color name="text_primary">#FFFFFF</color>
-    <color name="text_secondary">#AAAAAA</color>
-    <color name="card_background">#1E1E1E</color>
+    <!-- ══════════════════════════════════════════════
+         PALETA PREMIUM — EricCatch / SnapTube Pro
+         Inspiración: dark glass + neon accent
+    ══════════════════════════════════════════════ -->
+
+    <!-- Primarios — violeta eléctrico profundo -->
+    <color name="colorPrimary">#8B5CF6</color>
+    <color name="colorPrimaryDark">#6D28D9</color>
+    <color name="colorPrimaryLight">#A78BFA</color>
+    <color name="colorPrimaryGlow">#3D8B5CF6</color>   <!-- 24% alpha para brillos -->
+
+    <!-- Acento — cian eléctrico -->
+    <color name="colorAccent">#06B6D4</color>
+    <color name="colorAccentLight">#67E8F9</color>
+    <color name="colorAccentGlow">#2506B6D4</color>
+
+    <!-- Segundo acento — rose neon (botón MP3) -->
+    <color name="colorRose">#F43F5E</color>
+    <color name="colorRoseLight">#FB7185</color>
+    <color name="colorRoseGlow">#30F43F5E</color>
+
+    <!-- Fondo dark ultra profundo -->
+    <color name="background_dark">#070711</color>
+    <color name="background_surface">#0E0E1C</color>
+    <color name="background_card">#13132280</color>       <!-- semi-transparente para glass -->
+    <color name="background_card2">#18182A</color>
+    <color name="background_elevated">#1C1C30</color>
+    <color name="background_sheet">#111124</color>
+
+    <!-- Bordes glass luminosos -->
+    <color name="border_glass">#2AFFFFFF</color>         <!-- 16% blanco -->
+    <color name="border_glow_purple">#508B5CF6</color>   <!-- 32% primary -->
+    <color name="border_glow_cyan">#4006B6D4</color>     <!-- 25% accent -->
+
+    <!-- Textos -->
+    <color name="text_primary">#F1F1FF</color>
+    <color name="text_secondary">#8B8BAE</color>
+    <color name="text_hint">#44445A</color>
+    <color name="text_on_gradient">#FFFFFF</color>
+
+    <!-- UI elementos -->
+    <color name="divider">#1EFFFFFF</color>              <!-- 12% blanco -->
+    <color name="ripple">#408B5CF6</color>
+    <color name="search_bg">#0DFFFFFF</color>            <!-- frosted glass -->
+    <color name="icon_tint">#A0A0C8</color>
+    <color name="icon_active">#C4B5FD</color>
+
+    <!-- Gradiente botón MP4 — violeta a cian -->
+    <color name="mp4_start">#8B5CF6</color>
+    <color name="mp4_mid">#6366F1</color>
+    <color name="mp4_end">#06B6D4</color>
+
+    <!-- Gradiente botón MP3 — rose a amber -->
+    <color name="mp3_start">#F43F5E</color>
+    <color name="mp3_mid">#EC4899</color>
+    <color name="mp3_end">#F97316</color>
+
+    <!-- Toolbar gradient -->
+    <color name="toolbar_top">#FF070711</color>
+    <color name="toolbar_bottom">#00070711</color>
+
+    <!-- Estados -->
+    <color name="success">#10B981</color>
+    <color name="success_glow">#2510B981</color>
+    <color name="warning">#F59E0B</color>
+    <color name="error">#EF4444</color>
+
+    <!-- Chip duración -->
+    <color name="chip_bg">#CC000000</color>
+    <color name="chip_border">#3AFFFFFF</color>
+
+    <!-- Progress -->
+    <color name="progress_track">#1AFFFFFF</color>
+    <color name="progress_active">#8B5CF6</color>
 </resources>

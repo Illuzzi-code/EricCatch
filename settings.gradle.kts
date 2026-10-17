@@ -12,5 +12,5 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-rootProject.name = "SnapTubePro"
+rootProject.name = "EricCatch"
 include(":app")

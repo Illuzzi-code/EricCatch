@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Campo de búsqueda glass: fondo frosted + borde luminoso sutil -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Fondo glass base -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#12FFFFFF" />
+            <corners android:radius="16dp" />
+        </shape>
+    </item>
+    <!-- Borde glass luminoso -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent" />
+            <corners android:radius="16dp" />
+            <stroke android:width="1dp" android:color="#22FFFFFF" />
+        </shape>
+    </item>
+    <!-- Brillo superior muy sutil -->
+    <item
+        android:bottom="25dp">
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="#10FFFFFF"
+                android:endColor="#00FFFFFF"
+                android:angle="270" />
+            <corners
+                android:topLeftRadius="16dp"
+                android:topRightRadius="16dp" />
+        </shape>
+    </item>
+</layer-list>

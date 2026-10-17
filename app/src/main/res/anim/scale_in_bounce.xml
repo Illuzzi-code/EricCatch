@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Aparece con escala desde 0.82 + fade, usando overshoot para el rebote -->
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+    <alpha
+        android:fromAlpha="0.0"
+        android:toAlpha="1.0"
+        android:duration="320"
+        android:interpolator="@android:interpolator/decelerate_quad" />
+    <scale
+        android:fromXScale="0.82"
+        android:toXScale="1.0"
+        android:fromYScale="0.82"
+        android:toYScale="1.0"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:duration="380"
+        android:interpolator="@android:interpolator/overshoot" />
+</set>

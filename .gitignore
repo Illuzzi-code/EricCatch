@@ -8,3 +8,12 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# APK artifacts locales
+/artifacts
+app/build/outputs/
+
+# Keystore — NUNCA subir al repo
+*.jks
+*.keystore
+keystore.properties

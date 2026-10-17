@@ -1,14 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SnapTube Pro</string>
-    <string name="hint_url">Pega la URL del video aquí</string>
-    <string name="btn_search">Buscar</string>
+    <string name="app_name">EricCatch</string>
+    <string name="hint_search">Busca un video o pega una URL…</string>
     <string name="btn_download_mp4">⬇ Descargar MP4 (máx. calidad)</string>
     <string name="btn_download_mp3">⬇ Descargar MP3 (máx. calidad)</string>
     <string name="label_duration">Duración: </string>
     <string name="status_idle">Listo</string>
-    <string name="status_loading">Obteniendo información del video...</string>
-    <string name="status_downloading">Descargando...</string>
+    <string name="status_loading">Obteniendo información…</string>
+    <string name="status_downloading">Descargando…</string>
     <string name="status_complete">¡Descarga completa!</string>
     <string name="open">ABRIR</string>
+    <string name="perm_storage_rationale">Se necesita acceso al almacenamiento para guardar los videos descargados.</string>
+    <string name="perm_notification_rationale">Las notificaciones permiten saber cuándo termina una descarga.</string>
+
+    <!-- Notificación de descarga -->
+    <string name="notif_channel_name">Descargas</string>
+    <string name="notif_channel_desc">Progreso de descargas en segundo plano</string>
+    <string name="notif_title_downloading">Descargando…</string>
+    <string name="notif_title_done">Descarga completa</string>
+    <string name="notif_title_error">Error en descarga</string>
+    <string name="notif_action_cancel">Cancelar</string>
+
+    <!-- Historial -->
+    <string name="history_title">Mis descargas</string>
+    <string name="history_empty">No hay descargas todavía</string>
+    <string name="action_play">Reproducir</string>
+    <string name="action_share">Compartir</string>
+    <string name="action_delete">Eliminar</string>
+    <string name="confirm_delete">¿Eliminar este archivo?</string>
+    <string name="deleted">Archivo eliminado</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.snaptubepro
+package com.ericcatch
 
 data class VideoInfo(
     val title: String,

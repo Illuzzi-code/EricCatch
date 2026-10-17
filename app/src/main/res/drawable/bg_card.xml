@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Card premium glass con borde sutil y brillo superior -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Fondo glass oscuro -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#1AFFFFFF" />
+            <corners android:radius="20dp" />
+        </shape>
+    </item>
+    <!-- Relleno principal -->
+    <item
+        android:left="1dp"
+        android:top="1dp"
+        android:right="1dp"
+        android:bottom="1dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#0F0F1E" />
+            <corners android:radius="19dp" />
+        </shape>
+    </item>
+    <!-- Brillo en borde superior izquierdo (glass specular) -->
+    <item
+        android:bottom="12dp">
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="#12FFFFFF"
+                android:endColor="#00FFFFFF"
+                android:angle="270" />
+            <corners
+                android:topLeftRadius="19dp"
+                android:topRightRadius="19dp" />
+        </shape>
+    </item>
+</layer-list>

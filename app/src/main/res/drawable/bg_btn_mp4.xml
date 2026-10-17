@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Botón MP4 — gradiente diagonal violeta → índigo → cian con borde luminoso -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Sombra/glow exterior difuso -->
+    <item
+        android:left="0dp"
+        android:top="0dp"
+        android:right="0dp"
+        android:bottom="0dp">
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="#608B5CF6"
+                android:endColor="#3006B6D4"
+                android:angle="135" />
+            <corners android:radius="18dp" />
+        </shape>
+    </item>
+    <!-- Capa principal con gradiente premium -->
+    <item
+        android:left="0dp"
+        android:top="0dp"
+        android:right="0dp"
+        android:bottom="0dp">
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="@color/mp4_start"
+                android:centerColor="@color/mp4_mid"
+                android:endColor="@color/mp4_end"
+                android:angle="135" />
+            <corners android:radius="16dp" />
+        </shape>
+    </item>
+    <!-- Brillo superior sutil (specular highlight) -->
+    <item
+        android:left="2dp"
+        android:top="2dp"
+        android:right="2dp"
+        android:bottom="27dp">
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="#30FFFFFF"
+                android:endColor="#00FFFFFF"
+                android:angle="270" />
+            <corners
+                android:topLeftRadius="14dp"
+                android:topRightRadius="14dp" />
+        </shape>
+    </item>
+</layer-list>

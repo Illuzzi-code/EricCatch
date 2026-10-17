@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.snaptubepro"
+    namespace = "com.ericcatch"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.snaptubepro"
+        applicationId = "com.ericcatch"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -45,6 +45,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.recyclerview)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.ktx)
@@ -55,4 +56,5 @@ dependencies {
     testImplementation(libs.junit)
     implementation(libs.youtubedl.android.library)
     implementation(libs.youtubedl.android.ffmpeg)
+    implementation(libs.androidx.browser)
 }

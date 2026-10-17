@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:layout_marginBottom="6dp"
+    android:background="@drawable/bg_quality_item"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingEnd="18dp"
+    android:paddingStart="14dp">
+
+    <!-- Barra decorativa vertical izquierda -->
+    <View
+        android:layout_width="3dp"
+        android:layout_height="28dp"
+        android:background="@drawable/bg_quality_bar"
+        android:layout_marginEnd="14dp" />
+
+    <!-- Etiqueta de calidad -->
+    <TextView
+        android:id="@+id/tvQualityLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textColor="@color/text_primary"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.01" />
+
+    <!-- Badge tamaño (opcional, oculto por defecto) -->
+    <TextView
+        android:id="@+id/tvQualitySize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/bg_badge_quality"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:textColor="@color/colorPrimaryLight"
+        android:textSize="10sp"
+        android:visibility="gone" />
+
+    <!-- Flecha → -->
+    <ImageView
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="10dp"
+        android:src="@android:drawable/ic_media_play"
+        android:contentDescription="Seleccionar"
+        app:tint="@color/text_secondary" />
+
+</LinearLayout>

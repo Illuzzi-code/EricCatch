@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- BottomSheet premium: fondo dark profundo con borde top luminoso y brillo sutil -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Fondo base -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/background_sheet" />
+            <corners android:topLeftRadius="28dp" android:topRightRadius="28dp" />
+        </shape>
+    </item>
+    <!-- Borde superior glass con gradiente violeta-cian -->
+    <item android:bottom="-2dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent" />
+            <stroke android:width="1dp" android:color="#30A78BFA" />
+            <corners android:topLeftRadius="28dp" android:topRightRadius="28dp" />
+        </shape>
+    </item>
+    <!-- Brillo superior difuso -->
+    <item android:bottom="40dp">
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="#0EFFFFFF"
+                android:endColor="#00FFFFFF"
+                android:angle="270" />
+            <corners android:topLeftRadius="28dp" android:topRightRadius="28dp" />
+        </shape>
+    </item>
+</layer-list>

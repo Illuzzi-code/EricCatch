@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Usado en items de lista: fade + slide desde abajo. El delay se aplica por código -->
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:interpolator="@android:interpolator/decelerate_cubic">
+    <alpha
+        android:fromAlpha="0.0"
+        android:toAlpha="1.0"
+        android:duration="320" />
+    <translate
+        android:fromYDelta="24dp"
+        android:toYDelta="0"
+        android:duration="320" />
+</set>

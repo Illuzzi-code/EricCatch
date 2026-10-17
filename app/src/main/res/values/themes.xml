@@ -1,10 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.SnapTubePro" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+
+    <!-- ══ Tema principal ══════════════════════════════════════════ -->
+    <style name="Theme.EricCatch" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorSurface">@color/background_surface</item>
+        <item name="colorOnSurface">@color/text_primary</item>
         <item name="android:windowBackground">@color/background_dark</item>
-        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/background_dark</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="colorControlHighlight">@color/ripple</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="materialButtonStyle">@style/Widget.EricCatch.Button</item>
+        <item name="bottomSheetDialogTheme">@style/Theme.EricCatch.BottomSheetDialog</item>
     </style>
+
+    <!-- Splash: sin ActionBar, fondo del splash -->
+    <style name="Theme.EricCatch.Splash" parent="Theme.EricCatch">
+        <item name="android:windowBackground">@drawable/splash_bg</item>
+        <item name="android:windowFullscreen">false</item>
+    </style>
+
+    <!-- ══ Botón base premium ══════════════════════════════════════ -->
+    <style name="Widget.EricCatch.Button" parent="Widget.MaterialComponents.Button">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="cornerRadius">16dp</item>
+        <item name="rippleColor">@color/ripple</item>
+    </style>
+
+    <!-- ══ BottomSheet ════════════════════════════════════════════ -->
+    <style name="Widget.EricCatch.BottomSheet" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="android:background">@drawable/bg_bottom_sheet</item>
+        <item name="behavior_peekHeight">500dp</item>
+    </style>
+
+    <style name="Theme.EricCatch.BottomSheetDialog" parent="Theme.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/Widget.EricCatch.BottomSheet</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/background_sheet</item>
+    </style>
+
+    <!-- ══ Chip de calidad ════════════════════════════════════════ -->
+    <style name="Widget.EricCatch.QualityChip" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="chipBackgroundColor">@color/background_card2</item>
+        <item name="chipStrokeColor">@color/border_glass</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="checkedIconVisible">false</item>
+        <item name="rippleColor">@color/ripple</item>
+    </style>
+
+    <!-- ══ Section label (TextView) ══════════════════════════════ -->
+    <style name="TextAppearance.EricCatch.SectionLabel" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">0.12</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
 </resources>

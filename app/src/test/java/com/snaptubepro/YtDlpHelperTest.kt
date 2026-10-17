@@ -1,4 +1,4 @@
-package com.snaptubepro
+package com.ericcatch
 
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
@@ -93,13 +93,13 @@ class YtDlpHelperTest {
         val args = YtDlpHelper.buildMp4Args(
             url = "https://example.com/v",
             template = "/sdcard/%(title)s.%(ext)s",
-            ffmpegPath = "/data/data/com.snaptubepro/files/ffmpeg"
+            ffmpegPath = "/data/data/com.ericcatch/files/ffmpeg"
         )
 
         assertTrue("--ffmpeg-location should be present",
             args.contains("--ffmpeg-location"))
         assertEquals(
-            "/data/data/com.snaptubepro/files/ffmpeg",
+            "/data/data/com.ericcatch/files/ffmpeg",
             args[args.indexOf("--ffmpeg-location") + 1]
         )
     }
