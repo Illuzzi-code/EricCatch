@@ -5,8 +5,8 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Android-5.0%2B-brightgreen?logo=android" />
   <img src="https://img.shields.io/badge/yt--dlp-powered-blueviolet" />
-  <img src="https://img.shields.io/github/v/release/TU_USUARIO/EricCatch?label=última%20versión" />
-  <img src="https://img.shields.io/github/actions/workflow/status/TU_USUARIO/EricCatch/build-release.yml?label=build" />
+  <img src="https://img.shields.io/github/v/release/Illuzzi-code/EricCatch?label=última%20versión" />
+  <img src="https://img.shields.io/github/actions/workflow/status/Illuzzi-code/EricCatch/build-release.yml?label=build" />
 </p>
 
 ---
@@ -56,7 +56,7 @@
 ## 🔨 Compilar desde código fuente
 
 ```bash
-git clone https://github.com/TU_USUARIO/EricCatch.git
+git clone https://github.com/Illuzzi-code/EricCatch.git
 cd EricCatch
 ./gradlew assembleDebug
 # El APK queda en app/build/outputs/apk/debug/
